@@ -3,10 +3,11 @@
  * @author Fikri Rahmat Nurhidayat
  */
 const { Post } = require("../../../models");
+const postService = require("../../../services/post")
 
 module.exports = {
   list(req, res) {
-    Post.findAll()
+    postService.getAllPosts()
       .then((posts) => {
         res.status(200).json({
           status: "OK",
@@ -44,7 +45,6 @@ module.exports = {
 
   update(req, res) {
     const post = req.post;
-
     post
       .update(req.body)
       .then(() => {
