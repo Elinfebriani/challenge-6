@@ -68,8 +68,8 @@ module.exports = {
   },
 
   destroy(req, res) {
-    req.post
-      .destroy()
+    const post = req.post;
+    postService.deletePost(post, req.body)
       .then(() => {
         res.status(204).end();
       })

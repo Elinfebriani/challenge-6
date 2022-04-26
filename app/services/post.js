@@ -9,12 +9,15 @@ module.exports = {
         return Post.create({
             title,
             body,
-        });
+        })
     },
     updatePosts(post, req) {
-        return post.update(req);
+        return post.update(req)
     },
     findPost(id) {
         return Post.findByPk(id)
+    },
+    deletePost(post, req) {
+        return post.destroy(req)
     }
 }
