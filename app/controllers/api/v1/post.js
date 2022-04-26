@@ -26,7 +26,7 @@ module.exports = {
 
   create(req, res) {
     const { title, body } = req.body;
-    postService.createPosts(title, body)
+    postService.createPost(title, body)
       .then((post) => {
         res.status(201).json({
           status: "OK",
@@ -43,7 +43,7 @@ module.exports = {
 
   update(req, res) {
     const post = req.post;
-    postService.updatePosts(post, req.body)
+    postService.updatePost(post, req.body)
       .then(() => {
         res.status(200).json({
           status: "OK",

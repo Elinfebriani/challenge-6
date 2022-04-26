@@ -5,13 +5,13 @@ module.exports = {
         const posts = Post.findAll()
         return posts
     },
-    createPosts(title, body) {
+    createPost(title, body) {
         return Post.create({
             title,
             body,
         })
     },
-    updatePosts(post, req) {
+    updatePost(post, req) {
         return post.update(req)
     },
     findPost(id) {
