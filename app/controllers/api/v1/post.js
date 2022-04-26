@@ -25,10 +25,8 @@ module.exports = {
   },
 
   create(req, res) {
-    Post.create({
-      title: req.body.title,
-      body: req.body.body,
-    })
+    const { title, body } = req.body;
+    postService.createPosts(title, body)
       .then((post) => {
         res.status(201).json({
           status: "OK",

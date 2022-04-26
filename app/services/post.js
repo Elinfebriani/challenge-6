@@ -5,4 +5,11 @@ module.exports = {
         const posts = Post.findAll()
         return posts
     },
+    createPosts(title, body) {
+        return Post.create({
+            title,
+            body,
+        });
+    },
+
 }
