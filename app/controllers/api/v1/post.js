@@ -43,8 +43,7 @@ module.exports = {
 
   update(req, res) {
     const post = req.post;
-    post
-      .update(req.body)
+    postService.updatePosts(post, req.body)
       .then(() => {
         res.status(200).json({
           status: "OK",
@@ -83,7 +82,7 @@ module.exports = {
   },
 
   setPost(req, res, next) {
-    Post.findByPk(req.params.id)
+    postService.findPost(req.params.id)
       .then((post) => {
         if (!post) {
           res.status(404).json({

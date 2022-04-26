@@ -11,5 +11,10 @@ module.exports = {
             body,
         });
     },
-
+    updatePosts(post, req) {
+        return post.update(req);
+    },
+    findPost(id) {
+        return Post.findByPk(id)
+    }
 }
