@@ -17,6 +17,9 @@ module.exports = {
       umur: {
         type: Sequelize.STRING
       },
+      id_penitipan: {
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

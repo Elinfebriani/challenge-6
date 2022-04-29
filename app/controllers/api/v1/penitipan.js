@@ -2,11 +2,18 @@
  * @file contains request handler of hewan resource
  * @author Fikri Rahmat Nurhidayat
  */
+
+const { hewan } = require("../../../models");
 const penitipanHewan = require("../../../services/penitipan")
 
 module.exports = {
     list(req, res) {
-        penitipanHewan.getAllPenitipan()
+        penitipanHewan.getAllPenitipan({
+            include: {
+                model: hewan,
+                attributes: ["nama_hewan", "jenis", "umur"]
+            }
+        })
             .then((datapenitipan) => {
                 res.status(200).json({
                     status: "OK",

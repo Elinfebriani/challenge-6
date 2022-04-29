@@ -11,6 +11,13 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      penitipan.associate = function (models) {
+        //association can be defined here
+        //tabel penitipan memiliki banyak data tabel hewan
+        penitipan.hasMany(models.hewan, {
+          foreignKey: 'id_penitipan'
+        })
+      }
     }
   }
   penitipan.init({
@@ -21,5 +28,6 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'penitipan',
   });
+
   return penitipan;
 };

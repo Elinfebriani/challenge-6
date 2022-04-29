@@ -1,13 +1,18 @@
 /**
- * @file contains request handler of hewan resource
- * @author Fikri Rahmat Nurhidayat
- */
+* @file contains request handler of hewan resource
+* @author Fikri Rahmat Nurhidayat
+*/
 
+const { penitipan } = require("../../../models");
 const hewanService = require("../../../services/hewan")
 
 module.exports = {
     list(req, res) {
-        hewanService.getAllHewan()
+        hewanService.getAllHewan({
+            include: {
+                model: penitipan
+            }
+        })
             .then((datahewan) => {
                 res.status(200).json({
                     status: "OK",

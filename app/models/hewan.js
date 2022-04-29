@@ -11,15 +11,24 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      hewan.associate = function (models) {
+        //association can be defined here
+        hewan.belongsTo(models.penitipan, {
+          foreignKey: 'id_penitipan'
+        })
+      }
     }
   }
   hewan.init({
+    id_penitipan: DataTypes.INTEGER,
     nama_hewan: DataTypes.STRING,
     jenis: DataTypes.STRING,
-    umur: DataTypes.STRING
+    umur: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'hewan',
   });
+
+
   return hewan;
 };
