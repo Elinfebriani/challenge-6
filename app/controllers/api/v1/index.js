@@ -3,11 +3,11 @@
  * @author Fikri Rahmat Nurhidayat
  */
 
-const post = require("./post");
 const hewan = require("./hewan");
+const penitipan = require("./penitipan");
 
 
 module.exports = {
-  post,
   hewan,
+  penitipan
 };

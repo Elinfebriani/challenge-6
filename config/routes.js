@@ -11,23 +11,6 @@ appRouter.get("/", controllers.main.index);
  * TODO: Implement your own API
  *       implementations
  */
-apiRouter.get("/api/v1/posts", controllers.api.v1.post.list);
-apiRouter.post("/api/v1/posts", controllers.api.v1.post.create);
-apiRouter.put(
-  "/api/v1/posts/:id",
-  controllers.api.v1.post.setPost,
-  controllers.api.v1.post.update
-);
-apiRouter.get(
-  "/api/v1/posts/:id",
-  controllers.api.v1.post.setPost,
-  controllers.api.v1.post.show
-);
-apiRouter.delete(
-  "/api/v1/posts/:id",
-  controllers.api.v1.post.setPost,
-  controllers.api.v1.post.destroy
-);
 
 //routing API server tabel hewan
 apiRouter.get("/api/v1/datahewan", controllers.api.v1.hewan.list);
@@ -46,6 +29,25 @@ apiRouter.delete(
   "/api/v1/datahewan/:id",
   controllers.api.v1.hewan.setHewan,
   controllers.api.v1.hewan.destroy
+);
+
+//routing API server tabel penitipan
+apiRouter.get("/api/v1/datapenitipan", controllers.api.v1.penitipan.list);
+apiRouter.post("/api/v1/datapenitipan", controllers.api.v1.penitipan.create);
+apiRouter.put(
+  "/api/v1/datapenitipan/:id",
+  controllers.api.v1.penitipan.setPenitipan,
+  controllers.api.v1.penitipan.update
+);
+apiRouter.get(
+  "/api/v1/datapenitipan/:id",
+  controllers.api.v1.penitipan.setPenitipan,
+  controllers.api.v1.penitipan.show
+);
+apiRouter.delete(
+  "/api/v1/datapenitipan/:id",
+  controllers.api.v1.penitipan.setPenitipan,
+  controllers.api.v1.penitipan.destroy
 );
 
 

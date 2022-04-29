@@ -2,17 +2,16 @@
  * @file contains request handler of hewan resource
  * @author Fikri Rahmat Nurhidayat
  */
-
-const hewanService = require("../../../services/hewan")
+const penitipanHewan = require("../../../services/penitipan")
 
 module.exports = {
     list(req, res) {
-        hewanService.getAllHewan()
-            .then((datahewan) => {
+        penitipanHewan.getAllPenitipan()
+            .then((datapenitipan) => {
                 res.status(200).json({
                     status: "OK",
                     data: {
-                        datahewan,
+                        datapenitipan,
                     },
                 });
             })
@@ -25,12 +24,12 @@ module.exports = {
     },
 
     create(req, res) {
-        const { nama_hewan, jenis, umur } = req.body;
-        hewanService.createHewan(nama_hewan, jenis, umur)
-            .then((datahewan) => {
+        const { jenis_penitipan, durasi, biaya } = req.body;
+        penitipanHewan.createPenitipan(jenis_penitipan, durasi, biaya)
+            .then((datapenitipan) => {
                 res.status(201).json({
                     status: "OK",
-                    data: datahewan,
+                    data: datapenitipan,
                 });
             })
             .catch((err) => {
@@ -42,12 +41,12 @@ module.exports = {
     },
 
     update(req, res) {
-        const datahewan = req.hewan;
-        hewanService.updateHewan(datahewan, req.body)
+        const datapenitipan = req.penitipan;
+        penitipanHewan.updatePenitipan(datapenitipan, req.body)
             .then(() => {
                 res.status(200).json({
                     status: "OK",
-                    data: datahewan,
+                    data: datapenitipan,
                 });
             })
             .catch((err) => {
@@ -59,17 +58,17 @@ module.exports = {
     },
 
     show(req, res) {
-        const hewan = req.hewan;
+        const datapenitipan = req.penitipan;
 
         res.status(200).json({
             status: "OK",
-            data: hewan,
+            data: datapenitipan,
         });
     },
 
     destroy(req, res) {
-        const hewan = req.hewan;
-        hewanService.deleteHewan(hewan, req.body)
+        const datapenitipan = req.penitipan;
+        penitipanHewan.deletePenitipan(datapenitipan, req.body)
             .then(() => {
                 res.status(204).end();
             })
@@ -81,19 +80,19 @@ module.exports = {
             });
     },
 
-    setHewan(req, res, next) {
-        hewanService.findHewan(req.params.id)
-            .then((hewan) => {
-                if (!hewan) {
+    setPenitipan(req, res, next) {
+        penitipanHewan.findPenitipan(req.params.id)
+            .then((penitipan) => {
+                if (!penitipan) {
                     res.status(404).json({
                         status: "FAIL",
-                        message: "hewan not found!",
+                        message: "penitipan not found!",
                     });
 
                     return;
                 }
 
-                req.hewan = hewan;
+                req.penitipan = penitipan;
                 next()
             })
             .catch((err) => {
