@@ -10,7 +10,7 @@ module.exports = {
     list(req, res) {
         hewanService.getAllHewan({
             include: {
-                model: penitipan
+                model: penitipan,
             }
         })
             .then((datahewan) => {
@@ -30,8 +30,8 @@ module.exports = {
     },
 
     create(req, res) {
-        const { nama_hewan, jenis, umur } = req.body;
-        hewanService.createHewan(nama_hewan, jenis, umur)
+        const { nama_hewan, jenis, umur, id_penitipan } = req.body;
+        hewanService.createHewan(nama_hewan, jenis, umur, id_penitipan)
             .then((datahewan) => {
                 res.status(201).json({
                     status: "OK",

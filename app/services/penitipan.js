@@ -1,8 +1,8 @@
 const { penitipan } = require("../models");
 
 module.exports = {
-    getAllPenitipan() {
-        const datapenitipan = penitipan.findAll()
+    getAllPenitipan(data) {
+        const datapenitipan = penitipan.findAll(data)
         return datapenitipan
     },
     createPenitipan(jenis_penitipan, durasi, biaya) {

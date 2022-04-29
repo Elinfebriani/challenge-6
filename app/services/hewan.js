@@ -1,15 +1,16 @@
 const { hewan } = require("../models");
 
 module.exports = {
-    getAllHewan() {
-        const datahewan = hewan.findAll()
+    getAllHewan(data) {
+        const datahewan = hewan.findAll(data)
         return datahewan
     },
-    createHewan(nama_hewan, jenis, umur) {
+    createHewan(nama_hewan, jenis, umur, id_penitipan) {
         return hewan.create({
             nama_hewan,
             jenis,
-            umur
+            umur,
+            id_penitipan
         })
     },
     updateHewan(hewan, req) {
