@@ -4,7 +4,10 @@
  */
 
 const post = require("./post");
+const hewan = require("./hewan");
+
 
 module.exports = {
   post,
+  hewan,
 };

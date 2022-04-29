@@ -29,6 +29,27 @@ apiRouter.delete(
   controllers.api.v1.post.destroy
 );
 
+//routing API server tabel hewan
+apiRouter.get("/api/v1/datahewan", controllers.api.v1.hewan.list);
+apiRouter.post("/api/v1/datahewan", controllers.api.v1.hewan.create);
+apiRouter.put(
+  "/api/v1/datahewan/:id",
+  controllers.api.v1.hewan.setHewan,
+  controllers.api.v1.hewan.update
+);
+apiRouter.get(
+  "/api/v1/datahewan/:id",
+  controllers.api.v1.hewan.setHewan,
+  controllers.api.v1.hewan.show
+);
+apiRouter.delete(
+  "/api/v1/datahewan/:id",
+  controllers.api.v1.hewan.setHewan,
+  controllers.api.v1.hewan.destroy
+);
+
+
+
 /**
  * TODO: Delete this, this is just a demonstration of
  *       error handler
