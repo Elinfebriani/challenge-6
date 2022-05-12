@@ -3,11 +3,10 @@
  * @author Fikri Rahmat Nurhidayat
  */
 
-const hewan = require("./hewan");
-const penitipan = require("./penitipan");
-
+const cars = require("./cars");
+const users = require("./users");
 
 module.exports = {
-  hewan,
-  penitipan
+  cars,
+  users
 };

@@ -4,50 +4,53 @@ const controllers = require("../app/controllers");
 const appRouter = express.Router();
 const apiRouter = express.Router();
 
-/** Mount GET / handler */
-appRouter.get("/", controllers.main.index);
-
 /**
  * TODO: Implement your own API
  *       implementations
  */
 
-//routing API server tabel hewan
-apiRouter.get("/api/v1/datahewan", controllers.api.v1.hewan.list);
-apiRouter.post("/api/v1/datahewan", controllers.api.v1.hewan.create);
-apiRouter.put(
-  "/api/v1/datahewan/:id",
-  controllers.api.v1.hewan.setHewan,
-  controllers.api.v1.hewan.update
-);
-apiRouter.get(
-  "/api/v1/datahewan/:id",
-  controllers.api.v1.hewan.setHewan,
-  controllers.api.v1.hewan.show
-);
-apiRouter.delete(
-  "/api/v1/datahewan/:id",
-  controllers.api.v1.hewan.setHewan,
-  controllers.api.v1.hewan.destroy
+//routing API server tabel user
+apiRouter.post("/api/v1/register",
+  controllers.api.v1.users.register
 );
 
-//routing API server tabel penitipan
-apiRouter.get("/api/v1/datapenitipan", controllers.api.v1.penitipan.list);
-apiRouter.post("/api/v1/datapenitipan", controllers.api.v1.penitipan.create);
-apiRouter.put(
-  "/api/v1/datapenitipan/:id",
-  controllers.api.v1.penitipan.setPenitipan,
-  controllers.api.v1.penitipan.update
+apiRouter.get("/api/v1/users/:id",
+  controllers.api.v1.users.getUser
 );
-apiRouter.get(
-  "/api/v1/datapenitipan/:id",
-  controllers.api.v1.penitipan.setPenitipan,
-  controllers.api.v1.penitipan.show
+
+apiRouter.put("/api/v1/users/:id",
+  controllers.api.v1.users.update
 );
-apiRouter.delete(
-  "/api/v1/datapenitipan/:id",
-  controllers.api.v1.penitipan.setPenitipan,
-  controllers.api.v1.penitipan.destroy
+
+apiRouter.delete("/api/v1/users/:id",
+  controllers.api.v1.users.delete
+);
+
+appRouter.get("/api/v1/users",
+  controllers.api.v1.users.getAll
+);
+
+
+
+//routing API server tabel car
+apiRouter.post("/api/v1/create",
+  controllers.api.v1.cars.create
+);
+
+apiRouter.get("/api/v1/cars",
+  controllers.api.v1.cars.getAll
+);
+
+apiRouter.get("/api/v1/cars/:id",
+  controllers.api.v1.cars.getCar
+);
+
+apiRouter.put("/api/v1/cars/:id",
+  controllers.api.v1.cars.update
+);
+
+apiRouter.delete("/api/v1/cars/:id",
+  controllers.api.v1.cars.delete
 );
 
 
