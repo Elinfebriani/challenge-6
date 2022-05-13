@@ -41,6 +41,19 @@ module.exports = {
       year: {
         type: Sequelize.INTEGER
       },
+      createdBy: {
+        type: Sequelize.STRING
+      },
+      updatedBy: {
+        type: Sequelize.STRING
+      },
+      isDeleted: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
+      },
+      deletedBy: {
+        type: Sequelize.STRING
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
