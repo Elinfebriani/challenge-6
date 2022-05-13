@@ -29,4 +29,12 @@ module.exports = {
         return car.findAll();
     },
 
+    findOne(key) {
+        return car.findOne(key);
+    },
+
+    findAllOnlyWith(params) {
+        return car.findAll(params);
+    },
+
 };

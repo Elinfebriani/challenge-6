@@ -165,8 +165,12 @@ module.exports = {
         const token = jwt.sign({
             id: user.id,
             username: user.username,
-            email: user.email
-        }, "rahasiaNegara")
+            email: user.email,
+            createdAt: user.createdAt,
+            updatedAt: user.updatedAt,
+        }, process.env.JWT_PRIVATE_KEY || 'rahasiaNegara', {
+            expiresIn: '100h'
+        });
 
         res.status(201).json({
             id: user.id,
@@ -272,5 +276,47 @@ module.exports = {
         req.user = user;
         next();
     },
+
+    async whoAmI(req, res) {
+        res.status(200).json(req.user);
+    },
+
+    async intoAdmin(req, res) {
+
+        //for superadmin
+
+        const user = await usersService.get(req.params.id)
+        if (!user) {
+            res.status(404).json({
+                status: "FAIL",
+                message: `User with id ${req.params.id} not found!`,
+            });
+            return;
+        }
+
+        const admin = req.body.isAdmin;
+
+        usersService.update(req.params.id, {
+            isAdmin: admin
+        }).then(() => {
+            var addString = '';
+            if (admin == true) {
+                addString = 'now';
+            } else {
+                addString += "no longer"
+            };
+
+            res.status(200).json({
+                status: "OK",
+                message: `User with id ${req.params.id} is ${addString} an admin.`,
+            });
+        }).catch((err) => {
+            res.status(422).json({
+                status: "FAIL",
+                message: err.message,
+            });
+        });
+
+    }
 }
 

@@ -4,12 +4,13 @@
 */
 
 // const { cars } = require("../../../models");
-const carsService = require("../../../services/cars")
+const carsService = require("../../../services/cars");
+// const users = require("./users");
 
 module.exports = {
     async create(req, res) {
         const { plate, manufacture, model, rentPerDay, capacity, description, availableAt, transmission, available, type, year } = req.body;
-
+        const user = req.user
         carsService.create({
             plate,
             manufacture,
@@ -21,13 +22,27 @@ module.exports = {
             transmission,
             available,
             type,
-            year
+            year,
+            createdBy: user.username
         })
             .then((createCar) => {
                 res.status(201).json({
                     status: "Success",
+                    message: `Car was created by ${user.username}`,
                     data: {
-                        createCar
+                        id: createCar.id,
+                        plate: createCar.plate,
+                        manufacture: createCar.manufacture,
+                        model: createCar.model,
+                        rentPerDay: createCar.rentPerDay,
+                        capacity: createCar.capacity,
+                        description: createCar.description,
+                        availableAt: createCar.availableAt,
+                        transmission: createCar.transmission,
+                        available: createCar.available,
+                        type: createCar.type,
+                        year: createCar.year,
+                        createdBy: user.username
                     }
                 });
             })
@@ -138,5 +153,52 @@ module.exports = {
                 message: err.message,
             });
         });
+    },
+    async getAllCreatedCars(req, res) {
+        carsService.listOnly({
+            where: {
+                isDeleted: false
+            }
+        }, {
+            where: {
+                isDeleted: false
+            }
+        }).then((allCars) => {
+            res.status(200).json({
+                status: "success",
+                data: {
+                    allCars
+                }
+            })
+        }).catch((err) => {
+            res.status(400).json({
+                status: "FAIL",
+                message: err.message
+            })
+        })
+    },
+
+    async getDeletedCars(req, res) {
+        carsService.listOnly({
+            where: {
+                isDeleted: true
+            }
+        }, {
+            where: {
+                isDeleted: true
+            }
+        }).then((allCars) => {
+            res.status(200).json({
+                status: "success",
+                data: {
+                    allCars
+                }
+            })
+        }).catch((err) => {
+            res.status(400).json({
+                status: "FAIL",
+                message: err.message
+            })
+        })
     },
 };

@@ -25,7 +25,23 @@ module.exports = {
         }
     },
 
+    async listOnly(params) {
+        try {
+            const cars = await carsRepository.findAllOnlyWith(params);
+
+            return {
+                data: cars,
+            };
+        } catch (err) {
+            throw err;
+        }
+    },
+
     get(id) {
         return carsRepository.findCarById(id);
+    },
+
+    getOne(key) {
+        return carsRepository.findOne(key);
     }
 };
