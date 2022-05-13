@@ -121,7 +121,7 @@ module.exports = {
 
         usersService.update(req.params.id, {
             username,
-            password: hashedPassword
+            password: hashedPassword,
         }).then(() => {
             res.status(200).json({
                 status: "OK",

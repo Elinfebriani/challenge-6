@@ -2,29 +2,47 @@ const jwt = require('jsonwebtoken');
 const usersService = require("../services/users")
 
 module.exports = {
+    // async authorize(req, res, next) {
+    //     try {
+    //         const token = req.headers.authorization;
+    //         const payload = jwt.verify(
+    //             token,
+    //             process.env.JWT_PRIVATE_KEY || "rahasiaNegara"
+    //         );
+
+    //         req.user = await usersService.get(payload.id);
+
+    //         next();
+    //     } catch (err) {
+    //         res.status(401).json({
+    //             error: err.message,
+    //             message: "Unauthorized. You must login first to perform this action!"
+    //         });
+    //     }
+    // },
+
     async authorize(req, res, next) {
+        console.log(req.headers.authorization)
         try {
-            const token = req.headers.authorization;
+            const token = req.headers.authorization.split("Bearer ")[1];
             const payload = jwt.verify(
                 token,
-                process.env.JWT_PRIVATE_KEY || "rahasiaNegara"
-            );
-
+                process.env.JWT_PRIVATE_KEY || "rahasiaNegara");
             req.user = await usersService.get(payload.id);
-
             next();
         } catch (err) {
+            console.error(err);
             res.status(401).json({
-                error: err.message,
-                message: "Unauthorized. You must login first to perform this action!"
+                message: "Unauthorized",
             });
         }
     },
 
+
     async checkSameIdOrAdmin(req, res, next) {
+        console.log(req.headers.authorization)
         try {
-            const id = req.params.id;
-            const token = req.headers.authorization;
+            const token = req.headers.authorization.split("Bearer ")[1];
             const payload = jwt.verify(
                 token,
                 process.env.JWT_PRIVATE_KEY || "rahasiaNegara"
@@ -53,8 +71,9 @@ module.exports = {
     },
 
     async checkSuperAdmin(req, res, next) {
+        console.log(req.headers.authorization)
         try {
-            const token = req.headers.authorization;
+            const token = req.headers.authorization.split("Bearer ")[1];
             const payload = jwt.verify(
                 token,
                 process.env.JWT_PRIVATE_KEY || "rahasiaNegara"
@@ -78,8 +97,9 @@ module.exports = {
     },
 
     async checkAdmin(req, res, next) {
+        console.log(req.headers.authorization)
         try {
-            const token = req.headers.authorization;
+            const token = req.headers.authorization.split("Bearer ")[1];
             const payload = jwt.verify(
                 token,
                 process.env.JWT_PRIVATE_KEY || "rahasiaNegara"

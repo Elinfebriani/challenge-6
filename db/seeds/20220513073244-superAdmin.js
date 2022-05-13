@@ -4,8 +4,8 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     const passwordSupAdmin = await require('bcryptjs').hash(process.env.SUPERADMIN_PASSWORD, 10);
     await queryInterface.bulkInsert('users', [{
-      username: 'babangoktap',
-      email: "babangganteng70@gmail.com",
+      username: 'babangoktap70',
+      email: "banggantenk70@gmail.com",
       password: passwordSupAdmin,
       isAdmin: true,
       isSuperAdmin: true,
