@@ -5,6 +5,7 @@
 
 const usersService = require("../../../services/users")
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 module.exports = {
     async register(req, res) {
@@ -16,14 +17,14 @@ module.exports = {
             email: email.toLowerCase(),
             password: hashedPassword,
         })
-            .then((createdUser) => {
+            .then((create) => {
                 res.status(201).json({
                     status: "Success",
                     message: "Registration success!",
                     data: {
-                        id: createdUser.id,
+                        id: create.id,
                         username,
-                        email: createdUser.email
+                        email: create.email
                     }
                 });
             }).catch((err) => {
@@ -104,7 +105,7 @@ module.exports = {
             return;
         }
 
-        const name = await usersService.getOne({
+        const name = await usersService.findOne({
             where: {
                 username
             }
@@ -158,4 +159,118 @@ module.exports = {
                 });
             });
     },
-};
+    async login(req, res) {
+        const user = req.user;
+
+        const token = jwt.sign({
+            id: user.id,
+            username: user.username,
+            email: user.email
+        }, "rahasiaNegara")
+
+        res.status(201).json({
+            id: user.id,
+            email: user.email,
+            username: user.username,
+            token,
+            createdAt: user.createdAt,
+            updatedAt: user.updatedAt,
+        });
+    },
+
+    async checkCondition(req, res, next) {
+        const { username, email, password } = req.body;
+        if (password.length <= 10) {
+            res.status(400).json({
+                status: 'failed',
+                message: 'Password must have 10 or less characters!'
+            })
+            return;
+        }
+
+        if (username.length <= 10) {
+            res.status(400).json({
+                status: 'failed',
+                message: 'Username must have 10 or less characters!'
+            })
+            return;
+        }
+
+        const filter = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/g
+
+        if (email == '' || email.search(filter) == -1) {
+            res.status(400).json({
+                status: 'failed',
+                message: 'Wrong email format!'
+            })
+            return;
+        }
+
+        const checkEmail = await usersService.getOne({
+            where: { email }
+        });
+        const checkUsername = await usersService.getOne({
+            where: { username }
+        });
+
+        if (checkEmail) {
+            res.status(400).json({
+                status: 'failed',
+                message: 'Email already taken!'
+            })
+            return;
+        }
+
+        if (checkUsername) {
+            res.status(400).json({
+                status: 'failed',
+                message: 'username already taken!'
+            })
+            return;
+        }
+
+        next();
+    },
+
+    async checkData(req, res, next) {
+        const username = req.body.username;
+        const email = req.body.email.toLowerCase();
+        const password = req.body.password;
+
+        const user = await usersService.getOne({
+            where: { email }
+        })
+
+        const name = await usersService.getOne({
+            where: { username }
+        })
+
+        if (!user) {
+            res.status(404).json({
+                status: "FAIL",
+                message: `Email not found!`,
+            });
+            return;
+        }
+
+        if (!name) {
+            res.status(404).json({
+                status: "FAIL",
+                message: `username not found!`,
+            });
+            return;
+        }
+
+        const comparePassword = await bcrypt.compareSync(password, user.password)
+
+        if (!comparePassword) {
+            res.status(401).json({
+                message: 'Wrong Password. Please Try Again!'
+            });
+            return;
+        }
+        req.user = user;
+        next();
+    },
+}
+

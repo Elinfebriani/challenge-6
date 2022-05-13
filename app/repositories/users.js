@@ -28,4 +28,9 @@ module.exports = {
     findAll() {
         return users.findAll();
     },
+
+    findOne(key) {
+        return users.findOne(key);
+    },
+
 };

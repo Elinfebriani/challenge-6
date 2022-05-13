@@ -11,6 +11,7 @@ const apiRouter = express.Router();
 
 //routing API server tabel user
 apiRouter.post("/api/v1/register",
+  controllers.api.v1.users.checkCondition,
   controllers.api.v1.users.register
 );
 
@@ -26,8 +27,13 @@ apiRouter.delete("/api/v1/users/:id",
   controllers.api.v1.users.delete
 );
 
-appRouter.get("/api/v1/users",
+apiRouter.get("/api/v1/users",
   controllers.api.v1.users.getAll
+);
+
+apiRouter.post("/api/v1/login",
+  controllers.api.v1.users.checkData,
+  controllers.api.v1.users.login
 );
 
 

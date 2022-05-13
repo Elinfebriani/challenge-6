@@ -28,4 +28,8 @@ module.exports = {
     get(id) {
         return usersRepository.findUserById(id);
     },
+    getOne(key) {
+        return usersRepository.findOne(key);
+    },
+
 };
