@@ -2,7 +2,7 @@
  * @file Bootstrap express.js server
  * @author Fikri Rahmat Nurhidayat
  */
-
+require('dotenv').config()
 const express = require("express");
 const morgan = require("morgan");
 const path = require("path");

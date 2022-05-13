@@ -5,7 +5,7 @@ module.exports = {
     const passwordSupAdmin = await require('bcryptjs').hash(process.env.SUPERADMIN_PASSWORD, 10);
     await queryInterface.bulkInsert('users', [{
       username: 'babangoktap',
-      email: "babangganteng@gmail.com",
+      email: "babangganteng70@gmail.com",
       password: passwordSupAdmin,
       isAdmin: true,
       isSuperAdmin: true,

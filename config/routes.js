@@ -41,7 +41,12 @@ apiRouter.post("/api/v1/login",
   controllers.api.v1.users.login
 );
 
-appRoute.put("/api/v1/users/:id/update-admin",
+apiRouter.get("/api/v1/dashboard",
+  middlewares.authorization.authorize,
+  controllers.api.v1.users.whoAmI
+);
+
+apiRouter.put("/api/v1/users/:id/update-admin",
   middlewares.authorization.checkSuperAdmin,
   controllers.api.v1.users.intoAdmin
 );
@@ -57,11 +62,6 @@ apiRouter.post("/api/v1/create",
 apiRouter.get("/api/v1/accessadmin/cars",
   middlewares.authorization.checkAdmin,
   controllers.api.v1.cars.getAll
-);
-
-apiRouter.get("/api/v1/cars/deleted",
-  middlewares.authorization.checkAdmin,
-  controllers.api.v1.cars.getDeletedCars
 );
 
 apiRouter.get("/api/v1/cars/:id",
