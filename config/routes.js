@@ -54,11 +54,6 @@ apiRouter.post("/api/v1/create",
   controllers.api.v1.cars.create
 );
 
-apiRouter.get("/api/v1/cars",
-  middlewares.authorization.authorize,
-  controllers.api.v1.cars.getAllCreatedCars
-);
-
 apiRouter.get("/api/v1/accessadmin/cars",
   middlewares.authorization.checkAdmin,
   controllers.api.v1.cars.getAll

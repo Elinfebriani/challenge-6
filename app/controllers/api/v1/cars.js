@@ -177,28 +177,4 @@ module.exports = {
             })
         })
     },
-
-    async getDeletedCars(req, res) {
-        carsService.listOnly({
-            where: {
-                isDeleted: true
-            }
-        }, {
-            where: {
-                isDeleted: true
-            }
-        }).then((allCars) => {
-            res.status(200).json({
-                status: "success",
-                data: {
-                    allCars
-                }
-            })
-        }).catch((err) => {
-            res.status(400).json({
-                status: "FAIL",
-                message: err.message
-            })
-        })
-    },
 };

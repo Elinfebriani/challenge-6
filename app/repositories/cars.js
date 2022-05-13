@@ -14,7 +14,7 @@ module.exports = {
     },
 
     delete(id) {
-        return car.destroy({
+        return car.update({
             where: {
                 id
             }

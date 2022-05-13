@@ -9,8 +9,8 @@ module.exports = {
         return carsRepository.update(id, requestBody);
     },
 
-    delete(id) {
-        return carsRepository.delete(id);
+    delete(id, requestBody) {
+        return carsRepository.delete(id, requestBody);
     },
 
     async list() {
